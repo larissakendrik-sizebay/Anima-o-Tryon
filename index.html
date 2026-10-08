@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try-On Add-on</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* tokens do Figma */
+    --azul-50: #e6f4ff;
+    --azul-100: #d2ecff;
+    --azul-200: #a8d8fa;
+    --azul-300: #84c4f1;
+    --azul-500: #4299d7;
+    --roxo-50: #f4f3fb;
+    --roxo-100: #e8e6f6;
+    --roxo-600: #786faf;
+    --branco: #ffffff;
+    --titulo: #434a50;
+    --paragrafo: rgba(67, 74, 80, 0.8);
+    --shadow-glass: 0 18px 53px rgba(49, 37, 105, 0.15);
+
+    /* proporção do vídeo: ajuste aqui conforme o arquivo tryon */
+    --video-ratio: 4 / 5;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 16px;
+    font-family: "Outfit", system-ui, sans-serif;
+    background: var(--roxo-50);
+    color: var(--titulo);
+  }
+
+  .tryon {
+    max-width: 1372px;
+    margin: 0 auto;
+    padding: 80px 64px;
+    border-radius: 52px;
+    background:
+      radial-gradient(circle at 96% 6%, rgba(255,255,255,.9), rgba(255,255,255,0) 28%),
+      linear-gradient(-56deg, var(--azul-500) -20%, var(--azul-200) 20%, var(--azul-50) 90%);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* ---------- texto ---------- */
+  .eyebrow {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--paragrafo);
+  }
+  h2 {
+    margin: 0 0 16px;
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--titulo);
+  }
+  .desc p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--paragrafo);
+  }
+  .desc p + p { margin-top: 12px; }
+
+  .features {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .features li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    line-height: 1.4;
+    color: var(--paragrafo);
+  }
+  .features svg { flex: none; width: 22px; height: 22px; margin-top: 1px; }
+
+  .btn {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 22px 48px;
+    border-radius: 8px;
+    background: var(--roxo-600);
+    color: var(--branco);
+    font: 500 16px/1.2 "Outfit", sans-serif;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+  }
+  .btn:hover { background: #695fa3; transform: translateY(-1px); }
+
+  /* ---------- vídeo ---------- */
+  .media {
+    position: relative;
+    padding: 20px;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--shadow-glass);
+  }
+  .media .screen {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--video-ratio);
+    border-radius: 16px;
+    border: 3px solid var(--roxo-50);
+    background: var(--branco);
+  }
+  .media video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .badge {
+    position: absolute;
+    left: -20px; bottom: 36px;
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px;
+    border-radius: 36px;
+    border: 1px solid var(--roxo-100);
+    background: var(--azul-100);
+    box-shadow: 0 8px 24px rgba(49, 37, 105, .15);
+    font-size: 14px; font-weight: 500; color: var(--titulo);
+  }
+  .badge svg { width: 14px; height: 14px; }
+
+  /* ---------- responsivo ---------- */
+  @media (max-width: 960px) {
+    .tryon { grid-template-columns: 1fr; padding: 48px 24px; gap: 40px; border-radius: 32px; }
+    h2 { font-size: 32px; }
+    .media { order: -1; max-width: 520px; margin: 0 auto; width: 100%; }
+    .badge { left: 12px; }
+  }
+  @media (max-width: 560px) {
+    .features { grid-template-columns: 1fr; }
+    .btn { display: block; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<section class="tryon" id="tryon">
+  <div class="copy">
+    <p class="eyebrow">Adicional exclusivo</p>
+    <h2>Ofereça a seus clientes uma experiência de compra imersiva</h2>
+    <div class="desc">
+      <p>O Try-on é a camada visual do Provador Virtual. Além de saber o tamanho, o cliente experimenta o produto diretamente pela câmera do celular (ou em uma foto sua) antes de colocar no carrinho.</p>
+      <p>É a última dúvida que ainda ficava: “mas vai ficar bem em mim?”. Agora, o cliente vê antes de comprar.</p>
+    </div>
+
+    <ul class="features">
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4299d7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        Experimentação visual em tempo real via câmera do celular
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4299d7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        Compatível com vestuário, calçados e óculos
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4299d7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        Upload de foto para visualizar o produto no próprio corpo
+      </li>
+      <li>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#4299d7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+        Integrado nativamente com o Provador Virtual Sizebay
+      </li>
+    </ul>
+
+    <a class="btn" href="#">Conheça o Try-on</a>
+  </div>
+
+  <div class="media">
+    <div class="screen">
+      <!-- coloque o arquivo tryon.mp4 (e opcionalmente tryon.webm) na mesma pasta -->
+      <video autoplay muted loop playsinline preload="auto" aria-label="Demonstração do Try-on">
+        <source src="tryon.webm" type="video/webm">
+        <source src="tryon.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="badge">
+      <svg viewBox="0 0 24 24" fill="#4299d7"><path d="M12 2l2.2 6.3L20 10l-5.8 1.7L12 18l-2.2-6.3L4 10l5.8-1.7z"/></svg>
+      Prove com sua foto
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
