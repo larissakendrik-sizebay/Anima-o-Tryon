@@ -24,7 +24,7 @@
     --shadow-glass: 0 18px 53px rgba(49, 37, 105, 0.15);
 
     /* proporção do vídeo: ajuste aqui conforme o arquivo tryon */
-    --video-ratio: 4 / 5;
+    --video-ratio: 280 / 600; /* frame "Try-on 5s" do Figma */
   }
 
   * { box-sizing: border-box; }
@@ -109,11 +109,59 @@
 
   /* ---------- vídeo ---------- */
   .media {
-    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
     padding: 20px;
     border-radius: 28px;
     background: rgba(255, 255, 255, 0.6);
     box-shadow: var(--shadow-glass);
+  }
+  .media-video { position: relative; }
+
+  /* ---------- telas do fluxo ---------- */
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    counter-reset: step;
+  }
+  .steps li {
+    position: relative;
+    counter-increment: step;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--paragrafo);
+    text-align: center;
+  }
+  .steps img {
+    width: 100%;
+    aspect-ratio: 375 / 812;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    border: 2px solid var(--roxo-50);
+    background: var(--branco);
+    box-shadow: 0 6px 18px rgba(49, 37, 105, .12);
+  }
+  .steps li::before {
+    content: counter(step);
+    position: absolute;
+    top: -6px; left: -6px;
+    width: 22px; height: 22px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--roxo-600);
+    color: var(--branco);
+    font-size: 12px; font-weight: 600;
+    z-index: 1;
   }
   .media .screen {
     position: relative;
@@ -150,6 +198,9 @@
     .badge { left: 12px; }
   }
   @media (max-width: 560px) {
+    .media { grid-template-columns: 1fr; }
+    .media-video { width: 100%; max-width: 220px; margin: 0 auto; }
+    .steps { grid-template-columns: repeat(3, 1fr); }
     .features { grid-template-columns: 1fr; }
     .btn { display: block; text-align: center; }
   }
@@ -189,17 +240,29 @@
   </div>
 
   <div class="media">
-    <div class="screen">
-      <!-- coloque o arquivo tryon.mp4 (e opcionalmente tryon.webm) na mesma pasta -->
-      <video autoplay muted loop playsinline preload="auto" aria-label="Demonstração do Try-on">
-        <source src="tryon.webm" type="video/webm">
-        <source src="tryon.mp4" type="video/mp4">
-      </video>
+    <div class="media-video">
+      <div class="screen">
+        <!-- coloque o arquivo tryon.mp4 (e opcionalmente tryon.webm) na mesma pasta -->
+        <video autoplay muted loop playsinline preload="auto" aria-label="Demonstração do Try-on">
+          <source src="tryon.webm" type="video/webm">
+          <source src="tryon.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="#4299d7"><path d="M12 2l2.2 6.3L20 10l-5.8 1.7L12 18l-2.2-6.3L4 10l5.8-1.7z"/></svg>
+        Prove com sua foto
+      </div>
     </div>
-    <div class="badge">
-      <svg viewBox="0 0 24 24" fill="#4299d7"><path d="M12 2l2.2 6.3L20 10l-5.8 1.7L12 18l-2.2-6.3L4 10l5.8-1.7z"/></svg>
-      Prove com sua foto
-    </div>
+
+    <!-- design de cada tela do fluxo (Figma: Try-on Completo > Telas Animação) -->
+    <ol class="steps" aria-label="Telas do fluxo do Try-on">
+      <li><img src="assets/telas/1-produto.png" alt="Página do produto com o botão Prove com sua foto" loading="lazy"><span>Produto</span></li>
+      <li><img src="assets/telas/2-onboarding.png" alt="Onboarding: Experimente este produto em você agora mesmo" loading="lazy"><span>Onboarding</span></li>
+      <li><img src="assets/telas/3-selecionar-foto.png" alt="Seleção de foto da galeria" loading="lazy"><span>Selecionar foto</span></li>
+      <li><img src="assets/telas/4-foto-enviada.png" alt="Foto escolhida pronta para experimentar" loading="lazy"><span>Foto enviada</span></li>
+      <li><img src="assets/telas/5-analisando.png" alt="Analisando sua foto" loading="lazy"><span>Analisando</span></li>
+      <li><img src="assets/telas/6-resultado.png" alt="Resultado do Try-on com tamanho recomendado" loading="lazy"><span>Resultado</span></li>
+    </ol>
   </div>
 </section>
 
